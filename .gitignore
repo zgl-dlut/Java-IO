@@ -1,0 +1,15 @@
+# Created by .ignore support plugin (hsz.mobi)
+# Created by .ignore support plugin (hsz.mobi)
+*.iml
+.setting/
+.idea/
+target/
+generated/
+LOG_HOME_IS_UNDEFINED/
+log.path_IS_UNDEFINED/
+
+
+
+pom.xml.versionsBackup
+
+.DS_Store
