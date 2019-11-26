@@ -2,17 +2,17 @@ package com.anxpp.io.calculator.aio.server;
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
-//×÷Îªhandler½ÓÊÕ¿Í»§¶ËÁ¬½Ó
+//ä½œä¸ºhandleræ¥æ”¶å®¢æˆ·ç«¯è¿æ¥
 public class AcceptHandler implements CompletionHandler<AsynchronousSocketChannel, AsyncServerHandler> {
 	@Override
 	public void completed(AsynchronousSocketChannel channel,AsyncServerHandler serverHandler) {
-		//¼ÌĞø½ÓÊÜÆäËû¿Í»§¶ËµÄÇëÇó
+		//ç»§ç»­æ¥å—å…¶ä»–å®¢æˆ·ç«¯çš„è¯·æ±‚
 		Server.clientCount++;
-		System.out.println("Á¬½ÓµÄ¿Í»§¶ËÊı£º" + Server.clientCount);
+		System.out.println("è¿æ¥çš„å®¢æˆ·ç«¯æ•°ï¼š" + Server.clientCount);
 		serverHandler.channel.accept(serverHandler, this);
-		//´´½¨ĞÂµÄBuffer
+		//åˆ›å»ºæ–°çš„Buffer
 		ByteBuffer buffer = ByteBuffer.allocate(1024);
-		//Òì²½¶Á  µÚÈı¸ö²ÎÊıÎª½ÓÊÕÏûÏ¢»Øµ÷µÄÒµÎñHandler
+		//å¼‚æ­¥è¯»  ç¬¬ä¸‰ä¸ªå‚æ•°ä¸ºæ¥æ”¶æ¶ˆæ¯å›è°ƒçš„ä¸šåŠ¡Handler
 		channel.read(buffer, buffer, new ReadHandler(channel));
 	}
 	@Override

@@ -20,14 +20,14 @@ public class ReadHandler implements CompletionHandler<Integer, ByteBuffer> {
 		String body;
 		try {
 			body = new String(bytes,"UTF-8");
-			System.out.println("¿Í»§¶ËÊÕµ½½á¹û:"+ body);
+			System.out.println("å®¢æˆ·ç«¯æ”¶åˆ°ç»“æœ:"+ body);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 	}
 	@Override
 	public void failed(Throwable exc,ByteBuffer attachment) {
-		System.err.println("Êı¾İ¶ÁÈ¡Ê§°Ü...");
+		System.err.println("æ•°æ®è¯»å–å¤±è´¥...");
 		try {
 			clientChannel.close();
 			latch.countDown();

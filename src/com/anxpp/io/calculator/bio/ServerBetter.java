@@ -5,43 +5,43 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 /**
- * BIO·şÎñ¶ËÔ´Âë__Î±Òì²½I/O
+ * BIOæœåŠ¡ç«¯æºç __ä¼ªå¼‚æ­¥I/O
  * @author yangtao__anxpp.com
  * @version 1.0
  */
 public final class ServerBetter {
-	//Ä¬ÈÏµÄ¶Ë¿ÚºÅ
+	//é»˜è®¤çš„ç«¯å£å·
 	private static int DEFAULT_PORT = 12345;
-	//µ¥ÀıµÄServerSocket
+	//å•ä¾‹çš„ServerSocket
 	private static ServerSocket server;
-	//Ïß³Ì³Ø ÀÁººÊ½µÄµ¥Àı
+	//çº¿ç¨‹æ±  æ‡’æ±‰å¼çš„å•ä¾‹
 	private static ExecutorService executorService = Executors.newFixedThreadPool(60);
-	//¸ù¾İ´«Èë²ÎÊıÉèÖÃ¼àÌı¶Ë¿Ú£¬Èç¹ûÃ»ÓĞ²ÎÊıµ÷ÓÃÒÔÏÂ·½·¨²¢Ê¹ÓÃÄ¬ÈÏÖµ
+	//æ ¹æ®ä¼ å…¥å‚æ•°è®¾ç½®ç›‘å¬ç«¯å£ï¼Œå¦‚æœæ²¡æœ‰å‚æ•°è°ƒç”¨ä»¥ä¸‹æ–¹æ³•å¹¶ä½¿ç”¨é»˜è®¤å€¼
 	public static void start() throws IOException{
-		//Ê¹ÓÃÄ¬ÈÏÖµ
+		//ä½¿ç”¨é»˜è®¤å€¼
 		start(DEFAULT_PORT);
 	}
-	//Õâ¸ö·½·¨²»»á±»´óÁ¿²¢·¢·ÃÎÊ£¬²»Ì«ĞèÒª¿¼ÂÇĞ§ÂÊ£¬Ö±½Ó½øĞĞ·½·¨Í¬²½¾ÍĞĞÁË
+	//è¿™ä¸ªæ–¹æ³•ä¸ä¼šè¢«å¤§é‡å¹¶å‘è®¿é—®ï¼Œä¸å¤ªéœ€è¦è€ƒè™‘æ•ˆç‡ï¼Œç›´æ¥è¿›è¡Œæ–¹æ³•åŒæ­¥å°±è¡Œäº†
 	public synchronized static void start(int port) throws IOException{
 		if(server != null) return;
 		try{
-			//Í¨¹ı¹¹Ôìº¯Êı´´½¨ServerSocket
-			//Èç¹û¶Ë¿ÚºÏ·¨ÇÒ¿ÕÏĞ£¬·şÎñ¶Ë¾Í¼àÌı³É¹¦
+			//é€šè¿‡æ„é€ å‡½æ•°åˆ›å»ºServerSocket
+			//å¦‚æœç«¯å£åˆæ³•ä¸”ç©ºé—²ï¼ŒæœåŠ¡ç«¯å°±ç›‘å¬æˆåŠŸ
 			server = new ServerSocket(port);
-			System.out.println("·şÎñÆ÷ÒÑÆô¶¯£¬¶Ë¿ÚºÅ£º" + port);
+			System.out.println("æœåŠ¡å™¨å·²å¯åŠ¨ï¼Œç«¯å£å·ï¼š" + port);
 			Socket socket;
-			//Í¨¹ıÎŞÏßÑ­»·¼àÌı¿Í»§¶ËÁ¬½Ó
-			//Èç¹ûÃ»ÓĞ¿Í»§¶Ë½ÓÈë£¬½«×èÈûÔÚaccept²Ù×÷ÉÏ¡£
+			//é€šè¿‡æ— çº¿å¾ªç¯ç›‘å¬å®¢æˆ·ç«¯è¿æ¥
+			//å¦‚æœæ²¡æœ‰å®¢æˆ·ç«¯æ¥å…¥ï¼Œå°†é˜»å¡åœ¨acceptæ“ä½œä¸Šã€‚
 			while(true){
 				socket = server.accept();
-				//µ±ÓĞĞÂµÄ¿Í»§¶Ë½ÓÈëÊ±£¬»áÖ´ĞĞÏÂÃæµÄ´úÂë
-				//È»ºó´´½¨Ò»¸öĞÂµÄÏß³Ì´¦ÀíÕâÌõSocketÁ´Â·
+				//å½“æœ‰æ–°çš„å®¢æˆ·ç«¯æ¥å…¥æ—¶ï¼Œä¼šæ‰§è¡Œä¸‹é¢çš„ä»£ç 
+				//ç„¶ååˆ›å»ºä¸€ä¸ªæ–°çš„çº¿ç¨‹å¤„ç†è¿™æ¡Socketé“¾è·¯
 				executorService.execute(new ServerHandler(socket));
 			}
 		}finally{
-			//Ò»Ğ©±ØÒªµÄÇåÀí¹¤×÷
+			//ä¸€äº›å¿…è¦çš„æ¸…ç†å·¥ä½œ
 			if(server != null){
-				System.out.println("·şÎñÆ÷ÒÑ¹Ø±Õ¡£");
+				System.out.println("æœåŠ¡å™¨å·²å…³é—­ã€‚");
 				server.close();
 				server = null;
 			}

@@ -13,7 +13,7 @@ public class Client {
 		clientHandle = new AsyncClientHandler(ip,port);
 		new Thread(clientHandle,"Client").start();
 	}
-	//Ïò·şÎñÆ÷·¢ËÍÏûÏ¢
+	//å‘æœåŠ¡å™¨å‘é€æ¶ˆæ¯
 	public static boolean sendMsg(String msg) throws Exception{
 		if(msg.equals("q")) return false;
 		clientHandle.sendMsg(msg);
@@ -22,7 +22,7 @@ public class Client {
 	@SuppressWarnings("resource")
 	public static void main(String[] args) throws Exception{
 		Client.start();
-		System.out.println("ÇëÊäÈëÇëÇóÏûÏ¢£º");
+		System.out.println("è¯·è¾“å…¥è¯·æ±‚æ¶ˆæ¯ï¼š");
 		Scanner scanner = new Scanner(System.in);
 		while(Client.sendMsg(scanner.nextLine()));
 	}

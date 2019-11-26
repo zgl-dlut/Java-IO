@@ -8,24 +8,24 @@ public class AsyncServerHandler implements Runnable {
 	public AsynchronousServerSocketChannel channel;
 	public AsyncServerHandler(int port) {
 		try {
-			//´´½¨·şÎñ¶ËÍ¨µÀ
+			//åˆ›å»ºæœåŠ¡ç«¯é€šé“
 			channel = AsynchronousServerSocketChannel.open();
-			//°ó¶¨¶Ë¿Ú
+			//ç»‘å®šç«¯å£
 			channel.bind(new InetSocketAddress(port));
-			System.out.println("·şÎñÆ÷ÒÑÆô¶¯£¬¶Ë¿ÚºÅ£º" + port);
+			System.out.println("æœåŠ¡å™¨å·²å¯åŠ¨ï¼Œç«¯å£å·ï¼š" + port);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	@Override
 	public void run() {
-		//CountDownLatch³õÊ¼»¯
-		//ËüµÄ×÷ÓÃ£ºÔÚÍê³ÉÒ»×éÕıÔÚÖ´ĞĞµÄ²Ù×÷Ö®Ç°£¬ÔÊĞíµ±Ç°µÄÏÖ³¡Ò»Ö±×èÈû
-		//´Ë´¦£¬ÈÃÏÖ³¡ÔÚ´Ë×èÈû£¬·ÀÖ¹·şÎñ¶ËÖ´ĞĞÍê³ÉºóÍË³ö
-		//Ò²¿ÉÒÔÊ¹ÓÃwhile(true)+sleep 
-		//Éú³É»·¾³¾Í²»ĞèÒªµ£ĞÄÕâ¸öÎÊÌâ£¬ÒÔÎª·şÎñ¶ËÊÇ²»»áÍË³öµÄ
+		//CountDownLatchåˆå§‹åŒ–
+		//å®ƒçš„ä½œç”¨ï¼šåœ¨å®Œæˆä¸€ç»„æ­£åœ¨æ‰§è¡Œçš„æ“ä½œä¹‹å‰ï¼Œå…è®¸å½“å‰çš„ç°åœºä¸€ç›´é˜»å¡
+		//æ­¤å¤„ï¼Œè®©ç°åœºåœ¨æ­¤é˜»å¡ï¼Œé˜²æ­¢æœåŠ¡ç«¯æ‰§è¡Œå®Œæˆåé€€å‡º
+		//ä¹Ÿå¯ä»¥ä½¿ç”¨while(true)+sleep
+		//ç”Ÿæˆç¯å¢ƒå°±ä¸éœ€è¦æ‹…å¿ƒè¿™ä¸ªé—®é¢˜ï¼Œä»¥ä¸ºæœåŠ¡ç«¯æ˜¯ä¸ä¼šé€€å‡ºçš„
 		latch = new CountDownLatch(1);
-		//ÓÃÓÚ½ÓÊÕ¿Í»§¶ËµÄÁ¬½Ó
+		//ç”¨äºæ¥æ”¶å®¢æˆ·ç«¯çš„è¿æ¥
 		channel.accept(this,new AcceptHandler());
 		try {
 			latch.await();

@@ -12,7 +12,7 @@ public class Client {
 		clientHandle = new ClientHandle(ip,port);
 		new Thread(clientHandle,"Server").start();
 	}
-	//向服务器发送消息
+	//脧貌路镁脦帽脝梅路垄脣脥脧没脧垄
 	public static boolean sendMsg(String msg) throws Exception{
 		if(msg.equals("q")) return false;
 		clientHandle.sendMsg(msg);

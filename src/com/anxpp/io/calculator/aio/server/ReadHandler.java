@@ -9,7 +9,7 @@ public class ReadHandler implements CompletionHandler<Integer, ByteBuffer> {
 	//���ڶ�ȡ�����Ϣ�ͷ���Ӧ��
 	private AsynchronousSocketChannel channel;
 	public ReadHandler(AsynchronousSocketChannel channel) {
-			this.channel = channel;
+		this.channel = channel;
 	}
 	//��ȡ����Ϣ��Ĵ���
 	@Override

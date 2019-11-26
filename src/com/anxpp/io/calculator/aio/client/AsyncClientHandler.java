@@ -14,7 +14,7 @@ public class AsyncClientHandler implements CompletionHandler<Void, AsyncClientHa
 		this.host = host;
 		this.port = port;
 		try {
-			//创建异步的客户端通道
+			//??????????
 			clientChannel = AsynchronousSocketChannel.open();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -22,9 +22,9 @@ public class AsyncClientHandler implements CompletionHandler<Void, AsyncClientHa
 	}
 	@Override
 	public void run() {
-		//创建CountDownLatch等待
+		//??CountDownLatch??
 		latch = new CountDownLatch(1);
-		//发起异步连接操作，回调参数就是这个类本身，如果连接成功会回调completed方法
+		//??????????????????????????????completed??
 		clientChannel.connect(new InetSocketAddress(host, port), this, this);
 		try {
 			latch.await();
@@ -37,16 +37,16 @@ public class AsyncClientHandler implements CompletionHandler<Void, AsyncClientHa
 			e.printStackTrace();
 		}
 	}
-	//连接服务器成功
-	//意味着TCP三次握手完成
+	//???????
+	//???TCP??????
 	@Override
 	public void completed(Void result, AsyncClientHandler attachment) {
-		System.out.println("客户端成功连接到服务器...");
+		System.out.println("???????????...");
 	}
-	//连接服务器失败
+	//???????
 	@Override
 	public void failed(Throwable exc, AsyncClientHandler attachment) {
-		System.err.println("连接服务器失败...");
+		System.err.println("???????...");
 		exc.printStackTrace();
 		try {
 			clientChannel.close();
@@ -55,13 +55,13 @@ public class AsyncClientHandler implements CompletionHandler<Void, AsyncClientHa
 			e.printStackTrace();
 		}
 	}
-	//向服务器发送消息
+	//????????
 	public void sendMsg(String msg){
 		byte[] req = msg.getBytes();
 		ByteBuffer writeBuffer = ByteBuffer.allocate(req.length);
 		writeBuffer.put(req);
 		writeBuffer.flip();
-		//异步写
+		//???
 		clientChannel.write(writeBuffer, writeBuffer,new WriteHandler(clientChannel, latch));
 	}
 }

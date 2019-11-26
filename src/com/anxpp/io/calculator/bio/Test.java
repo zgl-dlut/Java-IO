@@ -2,14 +2,14 @@ package com.anxpp.io.calculator.bio;
 import java.io.IOException;
 import java.util.Random;
 /**
- * ²âÊÔ·½·¨
+ * æµ‹è¯•æ–¹æ³•
  * @author yangtao__anxpp.com
  * @version 1.0
  */
 public class Test {
-	//²âÊÔÖ÷·½·¨
+	//æµ‹è¯•ä¸»æ–¹æ³•
 	public static void main(String[] args) throws InterruptedException {
-		//ÔËĞĞ·şÎñÆ÷
+		//è¿è¡ŒæœåŠ¡å™¨
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -20,9 +20,9 @@ public class Test {
 				}
 			}
 		}).start();
-		//±ÜÃâ¿Í»§¶ËÏÈÓÚ·şÎñÆ÷Æô¶¯Ç°Ö´ĞĞ´úÂë
+		//é¿å…å®¢æˆ·ç«¯å…ˆäºæœåŠ¡å™¨å¯åŠ¨å‰æ‰§è¡Œä»£ç 
 		Thread.sleep(100);
-		//ÔËĞĞ¿Í»§¶Ë 
+		//è¿è¡Œå®¢æˆ·ç«¯
 		char operators[] = {'+','-','*','/'};
 		Random random = new Random(System.currentTimeMillis());
 		new Thread(new Runnable() {
@@ -30,7 +30,7 @@ public class Test {
 			@Override
 			public void run() {
 				while(true){
-					//Ëæ»ú²úÉúËãÊõ±í´ïÊ½
+					//éšæœºäº§ç”Ÿç®—æœ¯è¡¨è¾¾å¼
 					String expression = random.nextInt(10)+""+operators[random.nextInt(4)]+(random.nextInt(10)+1);
 					Client.send(expression);
 					try {

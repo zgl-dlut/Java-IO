@@ -13,19 +13,19 @@ public class WriteHandler implements CompletionHandler<Integer, ByteBuffer> {
 	}
 	@Override
 	public void completed(Integer result, ByteBuffer buffer) {
-		//Íê³ÉÈ«²¿Êı¾İµÄĞ´Èë
+		//å®Œæˆå…¨éƒ¨æ•°æ®çš„å†™å…¥
 		if (buffer.hasRemaining()) {
 			clientChannel.write(buffer, buffer, this);
 		}
 		else {
-			//¶ÁÈ¡Êı¾İ
+			//è¯»å–æ•°æ®
 			ByteBuffer readBuffer = ByteBuffer.allocate(1024);
 			clientChannel.read(readBuffer,readBuffer,new ReadHandler(clientChannel, latch));
 		}
 	}
 	@Override
 	public void failed(Throwable exc, ByteBuffer attachment) {
-		System.err.println("Êı¾İ·¢ËÍÊ§°Ü...");
+		System.err.println("æ•°æ®å‘é€å¤±è´¥...");
 		try {
 			clientChannel.close();
 			latch.countDown();
